@@ -8,5 +8,20 @@ namespace ConsoleAppVendingMachine.Models
     {
         public float DefrostTimeInMinutes;
         public DateTime ExpiryDate;
+
+        public override string Examine()
+        {
+            return $"-- Frozen Food --\nName: {ProdName}\nInformation: {Information}\nExpiry Date: {ExpiryDate}\nDefrost Time in Minutes: {DefrostTimeInMinutes}";
+        }
+
+        public override string Use()
+        {
+            if (Sold == true)
+            {
+                return $"-- Usage --: {Information}";
+            }
+            else
+                return null;
+        }
     }
 }
