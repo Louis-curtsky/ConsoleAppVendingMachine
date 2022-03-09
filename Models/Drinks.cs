@@ -7,7 +7,14 @@ namespace ConsoleAppVendingMachine.Models
     class Drinks: Product
     {
         public bool Recycle;
-        public int Rebate;
+        public float Rebate;
+
+        public Drinks(int productId, string prodName, float unitCost, int qty, bool recycle, float rebate)
+    : base(productId, prodName, unitCost, qty) 
+        {
+            Recycle = recycle;
+            rebate = 0.00f;
+        }
 
         public override string Examine()
         {

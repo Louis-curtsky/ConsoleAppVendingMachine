@@ -6,12 +6,18 @@ namespace ConsoleAppVendingMachine.Models
 {
     class FrozenFood: Product
     {
-        public float DefrostTimeInMinutes;
+        public float DeFrostInMinutes;
         public DateTime ExpiryDate;
 
+        public FrozenFood(int productId, string prodName,  int qty, float unitCost, string usage, float deFrostInMinute, DateTime expiryDate)
+                : base(productId, prodName, qty, unitCost, usage)
+        {
+            ExpiryDate = expiryDate;
+            DeFrostInMinutes = deFrostInMinute; 
+        }
         public override string Examine()
         {
-            return $"-- Frozen Food --\nName: {ProdName}\nInformation: {Information}\nExpiry Date: {ExpiryDate}\nDefrost Time in Minutes: {DefrostTimeInMinutes}";
+            return $"-- Frozen Food --\nName: {ProdName}\nInformation: {Information}\nExpiry Date: {ExpiryDate}\nDefrost Time in Minutes: {DeFrostInMinutes}";
         }
 
         public override string Use()
