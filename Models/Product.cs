@@ -8,16 +8,14 @@ namespace ConsoleAppVendingMachine.Models
     {
         public int ProdCode { get; set; }
         public string ProdName { get; set; }
-        public String Information { get; set; }
         public int Quantity { get; set; }
-        public float UnitCost { get; set; }
+        public int UnitCost { get; set; }
         public string Usage { get; set; }
-        public bool Sold { get; set; }
+
 
         public Product(int prodCode)
         {
             this.ProdCode = prodCode;
-            this.Sold = false;
         }
 
         public Product(int prodCode, string prodName, int qty) 
@@ -26,15 +24,16 @@ namespace ConsoleAppVendingMachine.Models
             this.ProdName = prodName;
             this.Quantity = qty;
         }
-        public Product(int prodCode, string prodName, int qty, float unitCost) 
+        public Product(int prodCode, string prodName, int qty, int unitCost) 
             : this(prodCode, prodName, qty)
         {
             UnitCost = unitCost;
         }
-        public Product(int prodCode, string prodName, int qty, float unitCost, string usage) 
+        public Product(int prodCode, string prodName, string information, int qty, int unitCost, string usage) 
             : this(prodCode, prodName, qty, unitCost)
         {
             this.Usage = usage;
+
         }
         public abstract string Examine();
 

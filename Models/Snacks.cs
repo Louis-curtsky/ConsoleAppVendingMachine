@@ -10,11 +10,14 @@ namespace ConsoleAppVendingMachine.Models
         public DateTime ExpiryDate;
         public bool ContainPeanut;
 
-        public Snack(int productId, string prodName, int qty, float unitCost, string usage, DateTime expiryDate, bool containPeanut) 
-            : base(productId, prodName, qty, unitCost, usage)
+        public Snack(int productId, string prodName, int qty, int unitCost, DateTime expiryDate, bool containPeanut) 
+            : base(productId, 
+                   prodName, 
+                   qty, 
+                   unitCost)
         {
-            ExpiryDate = expiryDate;
-            ContainPeanut = containPeanut;
+            this.ExpiryDate = expiryDate;
+            this.ContainPeanut = containPeanut;
         }
         public override string Examine()
         {
@@ -24,12 +27,9 @@ namespace ConsoleAppVendingMachine.Models
 
         public override string Use()
         {
-            if (Sold == true)
-            {
-                return $"-- Usage --: {Information}";
-            }
-            else
-                return null;
+ 
+            return $"-- Usage --: {Usage}";
+
         }
 
     }

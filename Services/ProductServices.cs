@@ -45,11 +45,11 @@ namespace ConsoleAppVendingMachine.Services
             return storage;
         }
 
-        public Product FindById(int id)
+        public Product FindById(int prodCode)
         {
             foreach (Product product in storage)
             {
-                if (product.ProdCode.Equals(id))
+                if (product.ProdCode.Equals(prodCode))
                 {
                     return product;
                 }
@@ -57,6 +57,34 @@ namespace ConsoleAppVendingMachine.Services
             return null;
         }
 
+        public bool SufficientQtyChk(int prodCode, int qtyToBuy)
+        {
+            bool suffcientQty = false;
+            foreach (Product product in storage)
+            {
+                if (product.ProdCode.Equals(prodCode) && product.Quantity >= qtyToBuy)
+                {
+                    suffcientQty = true;
+                }
+            }
+            return suffcientQty;
+        }
+
+        public Product SufficientAmountToPurchase(int prodCode, int qtyToBuy, int moneyToBuy)
+        {
+            VendingMachine amountChk = new VendingMachine();
+            int totalCost = 0;
+            foreach (Product product in storage)
+            {
+                if (product.ProdCode.Equals(prodCode))
+                {
+                    totalCost = product.UnitCost * qtyToBuy;
+                    if (totalCost < moneyToBuy)
+                        return product;
+                }
+            }
+            return null;
+        }
         public bool Update(Product data)
         {
             for (int i = 0; i < storage.Count; i++)

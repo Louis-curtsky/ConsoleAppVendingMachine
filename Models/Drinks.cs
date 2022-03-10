@@ -9,26 +9,24 @@ namespace ConsoleAppVendingMachine.Models
         public bool Recycle;
         public float Rebate;
 
-        public Drinks(int productId, string prodName, float unitCost, int qty, bool recycle, float rebate)
-    : base(productId, prodName, unitCost, qty) 
+        public Drinks(int productId, string prodName, int qty, int unitCost, bool recycle, float rebate)
+        : base(productId,
+               prodName,
+               qty,
+               unitCost) 
         {
-            Recycle = recycle;
-            rebate = 0.00f;
+            this.Recycle = recycle;
+            this.Rebate = rebate;
         }
 
         public override string Examine()
         {
-            return $"-- Drinks --\nName: {ProdName}\nInformation: {Information}\nRecycle: {Recycle}\nRebate: {Rebate}";
+            return $"-- Drinks --\nName: {ProdName}\nRecycle: {Recycle}\nRebate: {Rebate}";
         }
 
         public override string Use()
         {
-            if (Sold == true)
-            {
-                return $"-- Usage --: {Information}";
-            }
-            else
-                return null;
+                return $"-- Usage --: {Usage}";
         }
     }
 }
