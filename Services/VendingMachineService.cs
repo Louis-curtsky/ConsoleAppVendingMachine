@@ -176,7 +176,7 @@ namespace ConsoleAppVendingMachine.Services
             }
 */
             totalAmount = totalAmount - totalToDeduct;
-            foreach (var (key, value) in moneyToReturn)
+            foreach (var (key, value) in moneyToReturn.ToList())
             {
                 // Assuming maximum user can insert 8430 cash in the machine
                 // Thats each denomination can stored up to 3 notes
@@ -190,10 +190,13 @@ namespace ConsoleAppVendingMachine.Services
                     totalAmount = totalAmount - (key * 2);
                     moneyToReturn[key] = 2;
                 }
-                else
+                else if (totalAmount >= key)
                 {
                     totalAmount = totalAmount - (key);
                     moneyToReturn[key] = 1;
+                } else
+                {
+                    totalAmount = totalAmount;
                 }
              
             }
