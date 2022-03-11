@@ -9,15 +9,34 @@ namespace ConsoleAppVendingMachine.Models
     {
         public DateTime ExpiryDate;
         public bool ContainPeanut;
+        public string Information { get; set; }
 
-        public Snack(int productId, string prodName, int qty, int unitCost, DateTime expiryDate, bool containPeanut) 
-            : base(productId, 
-                   prodName, 
-                   qty, 
+        public Snack(int productId, string prodName, int qty, int unitCost, string expiryDate, bool containPeanut)
+        : base(productId,
+                   prodName,
+                   qty,
                    unitCost)
         {
-            this.ExpiryDate = expiryDate;
             this.ContainPeanut = containPeanut;
+            ExpiryDate = DateTime.Parse(expiryDate);
+        }
+
+        public Snack()
+        {
+        }
+
+        public Snack(int prodCode): this()
+        {
+
+        }
+        public Snack(int prodCode, string prodName): this(prodCode)
+        {
+            this.ProdCode = prodCode;
+        }
+        public Snack(int prodCode, string prodName, string expiryDate): this(prodCode, prodName)
+        {
+
+
         }
         public override string Examine()
         {

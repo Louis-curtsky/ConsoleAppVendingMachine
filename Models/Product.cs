@@ -12,7 +12,7 @@ namespace ConsoleAppVendingMachine.Models
         public int UnitCost { get; set; }
         public string Usage { get; set; }
 
-
+        public Product() { }
         public Product(int prodCode)
         {
             this.ProdCode = prodCode;

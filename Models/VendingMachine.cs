@@ -9,21 +9,22 @@ namespace ConsoleAppVendingMachine.Models
 
         readonly int[] denominations = new int[] { 1, 5, 10, 20, 50, 100, 500, 1000 };
 
-        public Dictionary<int, int> moneyPool = new Dictionary<int, int>()
-        { { 1, 0 }, { 5, 0 }, { 10, 0 }, {20, 0 }, { 50, 0 }, {100, 0 }, { 500, 0 }, {1000, 0 } };
-        public Dictionary<int, int> MoneyPool
-        {
-            get { return moneyPool; }
-        }
-        private int moneyInserted;
+//        public Dictionary<int, int> moneyPool = new Dictionary<int, int>()
+//        { { 1, 0 }, { 5, 0 }, { 10, 0 }, {20, 0 }, { 50, 0 }, {100, 0 }, { 500, 0 }, {1000, 0 } };
+
+ 
         public int MoneyInserted{ get; set; }
         public int[] Denomination 
         {
-            get; set;
+            get { return denominations; }
         }
 
-        public int prodCodeToBuy;
-        public int ProdCodeToBuy { get; set; }
+        public bool EndOfTranscation { get; set; }
+        public int ProdCodeToBuy 
+        {
+            get; set; 
+        
+        }
 
         public int qtyToBuy;
         public int QtyToBuy
@@ -49,17 +50,21 @@ namespace ConsoleAppVendingMachine.Models
 
         public VendingMachine(int proCodeToBuy, int qtyToBuy): this()
         {
-            this.ProdCodeToBuy = prodCodeToBuy;
             this.QtyToBuy = qtyToBuy;
         }
 
         public VendingMachine(int proCodeToBuy, int qtyToBuy, int moneyInserted): this(proCodeToBuy, qtyToBuy)
         {
             this.MoneyInserted = moneyInserted;
-            VendingMachine returnAmount = new VendingMachine();
-            this.ValidAmountToBuy = returnAmount.InsertMoney(moneyInserted);
-        }
 
+        }
+        
+        public VendingMachine(int proCodeToBuy, int qtyToBuy, int moneyInserted, bool endOfTransaction): this(proCodeToBuy, qtyToBuy, moneyInserted)
+        {
+
+            this.EndOfTranscation = endOfTransaction;
+        }
+/*
         public int InsertMoney(int moneyInserted)
         {
             bool invalidNotes = true;
@@ -78,6 +83,6 @@ namespace ConsoleAppVendingMachine.Models
             }
                 throw new ArgumentException("Invalid Denomination!!!");
         }
-
+*/
     }
 }

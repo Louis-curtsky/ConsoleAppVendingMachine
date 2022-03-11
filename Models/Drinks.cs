@@ -4,10 +4,11 @@ using System.Text;
 
 namespace ConsoleAppVendingMachine.Models
 {
-    class Drinks: Product
+    public class Drinks: Product
     {
         public bool Recycle;
         public float Rebate;
+        public string Information { get; set; }
 
         public Drinks(int productId, string prodName, int qty, int unitCost, bool recycle, float rebate)
         : base(productId,
@@ -18,6 +19,11 @@ namespace ConsoleAppVendingMachine.Models
             this.Recycle = recycle;
             this.Rebate = rebate;
         }
+
+        public Drinks()
+        {
+        }
+
 
         public override string Examine()
         {
