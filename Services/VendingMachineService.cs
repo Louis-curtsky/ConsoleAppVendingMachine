@@ -44,37 +44,11 @@ namespace ConsoleAppVendingMachine.Services
                 data.UnitCost,
                 (data as Drinks).Recycle,
                 (data as Drinks).Rebate
-     );
+                );
             }
             storage.Add(product);
             return product;
         }
-
-        public Product Purchase(Product data, int prodCodeToBuy, Dictionary<int, int> moneyBalance, int qtyToBuy)
-        {
-            VendingMachine moneyToBuy = new VendingMachine();
-            int totalAmount = 0;
-            bool sufficientAmount = false;
-            foreach (var (key, value) in moneyBalance)
-            {
-                totalAmount += (key * value);
-            };
-            //           Dictionary<int, int> moneyPool = new Dictionary<int, int>();
-            Product product = null;
-            ProductServices productBuy = new ProductServices();
-
-            if (productBuy.SufficientQtyChk(prodCodeToBuy, qtyToBuy))
-            {
-              sufficientAmount = productBuy.SufficientAmountToPurchase(prodCodeToBuy, qtyToBuy, totalAmount);
-              if (sufficientAmount)
-              {
-                    product = productBuy.FindById(prodCodeToBuy);
-              }
-            }
-            storage.Add(product);
-            return product;
-        }
-
 
 
         public List<Product> FindAll()
@@ -134,11 +108,11 @@ namespace ConsoleAppVendingMachine.Services
             for (int i = 0; i < moneyInserted.Length; i++)
             {
                 foreach (var key in vendingMachine.Denomination)
-                if (moneyInserted[i] == key)
-                {
-                    moneyPool[moneyInserted[i]] += 1;
-                    invalidNotes = false;
-                }           
+                    if (moneyInserted[i] == key)
+                    {
+                        moneyPool[moneyInserted[i]] += 1;
+                        invalidNotes = false;
+                    }
             }
             if (!invalidNotes)
             {
@@ -147,10 +121,10 @@ namespace ConsoleAppVendingMachine.Services
             throw new ArgumentException("Invalid Denomination!!!");
         } // End of InsertMoney
 
-/*
-        public Dictionary<int, int> ReturnExcesstMoneyAtEnd
-            (Product data, Dictionary<int, int> moneyBalance, bool endOfTransaction)
-*/
+        /*
+                public Dictionary<int, int> ReturnExcesstMoneyAtEnd
+                    (Product data, Dictionary<int, int> moneyBalance, bool endOfTransaction)
+        */
         public Dictionary<int, int> ReturnExcesstMoneyAtEnd
             (int totalAmount, int totalToDeduct, bool endOfTransaction)
         {
@@ -165,16 +139,16 @@ namespace ConsoleAppVendingMachine.Services
                 { 1, 0 }
             };
             VendingMachine vendingMachine = new VendingMachine();
-/*
-            foreach(var (key, value) in moneyBalance)
-            {
-                totalAmount += (key * value);
-            }
-            foreach (Product product in storage)
-            {
-                totalToDeduct += (product.Quantity * product.UnitCost);
-            }
-*/
+            /*
+                        foreach(var (key, value) in moneyBalance)
+                        {
+                            totalAmount += (key * value);
+                        }
+                        foreach (Product product in storage)
+                        {
+                            totalToDeduct += (product.Quantity * product.UnitCost);
+                        }
+            */
             totalAmount = totalAmount - totalToDeduct;
             foreach (var (key, value) in moneyToReturn.ToList())
             {
@@ -194,16 +168,39 @@ namespace ConsoleAppVendingMachine.Services
                 {
                     totalAmount = totalAmount - (key);
                     moneyToReturn[key] = 1;
-                } else
-                {
-                    totalAmount = totalAmount;
                 }
-             
+                else
+                {
+                    //                    totalAmount = totalAmount;
+                }
+
             }
 
-                return moneyToReturn;
+            return moneyToReturn;
         } // End of InsertMoney
 
+        public Product Purchase(Product data, int prodCodeToBuy, Dictionary<int, int> moneyBalance, int qtyToBuy)
+        {
+            VendingMachine moneyToBuy = new VendingMachine();
+            int totalAmount = 0;
+            int sufficientAmount = 0;
+            foreach (var (key, value) in moneyBalance)
+            {
+                totalAmount += (key * value);
+            };
+            sufficientAmount = data.UnitCost * qtyToBuy;
+            //           Dictionary<int, int> moneyPool = new Dictionary<int, int>();
+
+ //             sufficientAmount = productBuy.SufficientAmountToPurchase(prodCodeToBuy, qtyToBuy, totalAmount);
+              if (totalAmount > sufficientAmount)
+              {
+                        if (data.ProdCode.Equals(prodCodeToBuy) && data.Quantity < qtyToBuy)
+                                throw new ArgumentException("Insufficient Product Quantity to sell!!!");
+
+              }
+
+            return data;
+        }
 
     }// End of Class
 }

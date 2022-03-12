@@ -18,7 +18,7 @@ namespace ConsoleAppVendingMachine.Models
                    unitCost)
         {
             this.ContainPeanut = containPeanut;
-            ExpiryDate = DateTime.Parse(expiryDate);
+            this. ExpiryDate = DateTime.Parse(expiryDate);
         }
 
         public Snack()
@@ -27,17 +27,16 @@ namespace ConsoleAppVendingMachine.Models
 
         public Snack(int prodCode): this()
         {
-
-        }
-        public Snack(int prodCode, string prodName): this(prodCode)
-        {
             this.ProdCode = prodCode;
         }
-        public Snack(int prodCode, string prodName, string expiryDate): this(prodCode, prodName)
+/*
+        public Snack(int prodCode, string prodName, int quantity, int unitCost): this(prodCode, prodName, quantity, unitCost)
         {
-
-
+            this.ProdCode = prodCode;
+            this.ProdName = prodName;
+            this.Quantity = quantity;
         }
+*/
         public override string Examine()
         {
             return $"-- Snack --\n Name: {ProdName}\nPeanut: {ContainPeanut}\nExpriry Date: {ExpiryDate}\n";
