@@ -192,15 +192,17 @@ namespace ConsoleAppVendingMachine.Services
             //           Dictionary<int, int> moneyPool = new Dictionary<int, int>();
 
             //             sufficientAmount = productBuy.SufficientAmountToPurchase(prodCodeToBuy, qtyToBuy, totalAmount);
-            if (totalAmount > sufficientAmount)
+            if (totalAmount < sufficientAmount)
+            {
+                return null;
+            }
+            else
             {
                 if (data.ProdCode.Equals(prodCodeToBuy) && data.Quantity < qtyToBuy)
                     throw new ArgumentException("Insufficient Product Quantity to sell!!!");
             }
-            else
-                return null;
-
             return data;
+
         }
 
     }// End of Class
