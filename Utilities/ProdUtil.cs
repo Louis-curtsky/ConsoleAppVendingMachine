@@ -21,8 +21,8 @@ namespace ConsoleAppVendingMachine.Utilities
                 return snacks;
             }
             return null;
-        }
-/*
+        }// End of Filter Snacks
+
         public static List<Drinks> FilterToOnlyDrinks(List<Product> products)
         {
             List<Drinks> drinks = new List<Drinks>();
@@ -37,7 +37,22 @@ namespace ConsoleAppVendingMachine.Utilities
                 return drinks;                  
             }
             return null;
-        }
-*/
+        }// End of Filter Drinks
+        public static List<FrozenFood> FilterToOnlyFrozenFood(List<Product> products)
+        {
+            List<FrozenFood> frozenFoods = new List<FrozenFood>();
+            FrozenFood information = new FrozenFood();
+            foreach (Product product in products)
+            {
+                if (product is FrozenFood)
+                {
+                    frozenFoods.Add(product as FrozenFood);
+                    information.Information = information.Examine();
+                }
+                return frozenFoods;
+            }
+            return null;
+        }// End of Filter Frozen Food
+
     }
 }

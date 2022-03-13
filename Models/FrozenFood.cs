@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleAppVendingMachine.Models
 {
-    class FrozenFood: Product
+    public class FrozenFood: Product
     {
         public float DeFrostInMinutes;
         public DateTime ExpiryDate;
@@ -16,9 +16,12 @@ namespace ConsoleAppVendingMachine.Models
                qty,
                unitCost)
         {
-            ExpiryDate = expiryDate;
-            DeFrostInMinutes = deFrostInMinute; 
+            this.ExpiryDate = expiryDate;
+            this.DeFrostInMinutes = deFrostInMinute; 
         }
+
+        public FrozenFood() 
+        { }
         public override string Examine()
         {
             return $"-- Frozen Food --\nName: {ProdName}\nExpiry Date: {ExpiryDate}\nDefrost Time in Minutes: {DeFrostInMinutes}";

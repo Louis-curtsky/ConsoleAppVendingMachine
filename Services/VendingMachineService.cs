@@ -104,21 +104,25 @@ namespace ConsoleAppVendingMachine.Services
                 { 100, 0 },
                 { 500, 0 },
                 { 1000, 0 }};
-            bool invalidNotes = true;
+            bool validNote = false;
             for (int i = 0; i < moneyInserted.Length; i++)
             {
-                foreach (var key in vendingMachine.Denomination)
-                    if (moneyInserted[i] == key)
+                for (int j = 0; j < denomination.Length; j++)
+                {
+                    if (moneyInserted[i] == denomination[j])
                     {
                         moneyPool[moneyInserted[i]] += 1;
-                        invalidNotes = false;
-                    }
+                        validNote = true;
+                    } 
+                    else                    
+                    if (validNote == false) 
+                       if (moneyInserted[i] < denomination[j + 1])
+                            throw new ArgumentException("Invalid Denomination!!!");
+                    
+                }
+                validNote = false;
             }
-            if (!invalidNotes)
-            {
                 return moneyPool;
-            }
-            throw new ArgumentException("Invalid Denomination!!!");
         } // End of InsertMoney
 
         /*
@@ -139,16 +143,6 @@ namespace ConsoleAppVendingMachine.Services
                 { 1, 0 }
             };
             VendingMachine vendingMachine = new VendingMachine();
-            /*
-                        foreach(var (key, value) in moneyBalance)
-                        {
-                            totalAmount += (key * value);
-                        }
-                        foreach (Product product in storage)
-                        {
-                            totalToDeduct += (product.Quantity * product.UnitCost);
-                        }
-            */
             totalAmount = totalAmount - totalToDeduct;
             foreach (var (key, value) in moneyToReturn.ToList())
             {
@@ -201,6 +195,7 @@ namespace ConsoleAppVendingMachine.Services
                 if (data.ProdCode.Equals(prodCodeToBuy) && data.Quantity < qtyToBuy)
                     throw new ArgumentException("Insufficient Product Quantity to sell!!!");
             }
+            data.Use();
             return data;
 
         }

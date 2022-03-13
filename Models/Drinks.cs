@@ -32,7 +32,8 @@ namespace ConsoleAppVendingMachine.Models
 
         public override string Use()
         {
-                return $"-- Usage --: {Usage}";
+            return $"-- Usage --: {Information}";
         }
+
     }
 }
